@@ -1,7 +1,6 @@
 // define function, then immediately invoke it
 
 $(function() {
-  console.log('ready');
 
   var MIN_BET = 5;
   var MAX_BET = 500;
@@ -50,7 +49,6 @@ $(function() {
 
   }
 
-
   var Player = {
 
     money: 100,
@@ -74,7 +72,7 @@ $(function() {
 
   }
 
-  Game.play()
+  $('#start-game').click(Game.play);
 
 });
 
