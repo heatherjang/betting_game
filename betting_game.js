@@ -1,5 +1,3 @@
-// define function, then immediately invoke it
-
 $(function() {
 
   var MIN_BET = 5;
@@ -7,10 +5,36 @@ $(function() {
   var MIN_GUESS = 1;
   var MAX_GUESS = 10;
 
+  var Player = {
+
+    money: 100,
+
+    placeBet: function() {
+      var betAmount = prompt("Place your bet (between $5-10):");
+      if (betAmount < MIN_BET || betAmount > MAX_BET) {
+        alert("Invalid bet!");
+        return false;
+      }
+      return betAmount;
+    },
+
+    chooseNumber: function() {
+      var guess = prompt("Choose a number between 1-10:");
+      if (guess < MIN_GUESS || guess > MAX_GUESS) {
+        return false;
+      }
+      return guess;
+    },
+
+  }
+
+  $('#player-money').val(Player.money);
+
   var Game = {
+
     play: function() {
       while (Player.money >= MIN_BET) {
-        alert("You have $" + Player.money);
+        // alert("You have $" + Player.money);
         var bet = Player.placeBet();
         if (!bet) {
           continue;
@@ -45,29 +69,6 @@ $(function() {
         alert("You lose");
         return -1;
       }
-    },
-
-  }
-
-  var Player = {
-
-    money: 100,
-
-    placeBet: function() {
-      var betAmount = prompt("Place your bet (between $5-10):");
-      if (betAmount < MIN_BET || betAmount > MAX_BET) {
-        alert("Invalid bet!");
-        return false;
-      }
-      return betAmount;
-    },
-
-    chooseNumber: function() {
-      var guess = prompt("Choose a number between 1-10:");
-      if (guess < MIN_GUESS || guess > MAX_GUESS) {
-        return false;
-      }
-      return guess;
     },
 
   }
