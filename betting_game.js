@@ -9,7 +9,8 @@ $(function() {
 
     money: 100,
 
-    placeBet: function(betAmount) {
+    placeBet: function(amount) {
+      var betAmount = parseInt(amount, 10) || 0;
       if (betAmount < MIN_BET || betAmount > MAX_BET) {
         alert('Invalid bet!');
         return false;
@@ -18,11 +19,12 @@ $(function() {
     },
 
     chooseNumber: function(guess) {
-      if (guess < MIN_GUESS || guess > MAX_GUESS) {
-        alert('Invalid bet!');
+      var number = parseInt(guess, 10) || 0;
+      if (number < MIN_GUESS || number > MAX_GUESS) {
+        alert('Invalid guess! Guess must be a number between 1-10');
         return false;
       }
-      return guess;
+      return number;
     },
 
   }
