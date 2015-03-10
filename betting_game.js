@@ -33,6 +33,10 @@ $(function() {
   var Game = {
 
     play: function() {
+      if (Player.money < MIN_BET) {
+        alert('Game over. No more money left!');
+        return;
+      }
       while (Player.money >= MIN_BET) {
         var bet = Player.placeBet();
         if (!bet) {
@@ -58,7 +62,7 @@ $(function() {
     },
 
     generateRand: function() {
-      return Math.ceil(Math.random() * 10);
+      return Math.ceil(Math.random() * MAX_GUESS);
     },
 
     checkGuess: function(rand_num, guess) {
