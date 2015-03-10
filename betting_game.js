@@ -27,30 +27,33 @@ $(function() {
     },
 
   }
-
+  // Displays available money before game start
   $('#player-money').val(Player.money);
 
   var Game = {
 
     play: function() {
       while (Player.money >= MIN_BET) {
-        // alert("You have $" + Player.money);
         var bet = Player.placeBet();
         if (!bet) {
           continue;
         }
-        // console.log("Bet: " + bet);
+        console.log("Bet: " + bet);
         var randNumber = Game.generateRand();
-        // console.log("Rand: " + randNumber);
+        console.log("Rand: " + randNumber);
         var playerGuess = Player.chooseNumber();
         if (!playerGuess) {
           continue;
         }
-        // console.log("Guess: " + playerGuess);
+        $('#random-number').val(randNumber);
+
+        console.log("Guess: " + playerGuess);
         var result = Game.checkGuess(randNumber, playerGuess);
-        // console.log("Result: " + result);
+        console.log("Result: " + result);
         Player.money += (bet * result);
-        // console.log(Player.money);
+        console.log(Player.money);
+        $('#player-money').val(Player.money);
+
       }
     },
 
@@ -59,10 +62,10 @@ $(function() {
     },
 
     checkGuess: function(rand_num, guess) {
-      if (guess === rand_num) {
+      if (guess == rand_num) {
         alert("You were correct!");
         return 2;
-      } else if (Math.abs(guess - rand_num) === 1) {
+      } else if (Math.abs(guess - rand_num) == 1) {
         alert("Close, but not quite.");
         return 0;
       } else {
@@ -76,4 +79,3 @@ $(function() {
   $('#start-game').click(Game.play);
 
 });
-
