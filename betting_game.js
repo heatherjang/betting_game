@@ -9,18 +9,17 @@ $(function() {
 
     money: 100,
 
-    placeBet: function() {
-      var betAmount = prompt("Place your bet (between $5-10):");
+    placeBet: function(betAmount) {
       if (betAmount < MIN_BET || betAmount > MAX_BET) {
-        alert("Invalid bet!");
+        alert('Invalid bet!');
         return false;
       }
       return betAmount;
     },
 
-    chooseNumber: function() {
-      var guess = prompt("Choose a number between 1-10:");
+    chooseNumber: function(guess) {
       if (guess < MIN_GUESS || guess > MAX_GUESS) {
+        alert('Invalid bet!');
         return false;
       }
       return guess;
@@ -33,32 +32,35 @@ $(function() {
   var Game = {
 
     play: function() {
+      var betAmount, randNumber, playerGuess, result;
       if (Player.money < MIN_BET) {
         alert('Game over. No more money left!');
         return;
       }
-      while (Player.money >= MIN_BET) {
-        var bet = Player.placeBet();
-        if (!bet) {
-          continue;
-        }
-        console.log("Bet: " + bet);
-        var randNumber = Game.generateRand();
-        console.log("Rand: " + randNumber);
-        var playerGuess = Player.chooseNumber();
-        if (!playerGuess) {
-          continue;
-        }
-        $('#random-number').val(randNumber);
-
-        console.log("Guess: " + playerGuess);
-        var result = Game.checkGuess(randNumber, playerGuess);
-        console.log("Result: " + result);
-        Player.money += (bet * result);
-        console.log(Player.money);
-        $('#player-money').val(Player.money);
-
+      betAmount = Player.placeBet($('#player-bet').val());
+      if (!betAmount) {
+        return;
       }
+      console.log("Bet: " + betAmount);
+
+      randNumber = Game.generateRand();
+      console.log("Rand: " + randNumber);
+
+      playerGuess = Player.chooseNumber($('#player-guess').val());
+      if (!playerGuess) {
+        return;
+      }
+      console.log("Guess: " + playerGuess);
+
+      $('#random-number').val(randNumber);
+
+      result = Game.checkGuess(randNumber, playerGuess);
+      console.log("Result: " + result);
+      
+      Player.money += (betAmount * result);
+      console.log(Player.money);
+      $('#player-money').val(Player.money);
+
     },
 
     generateRand: function() {
